@@ -10,21 +10,26 @@ if (JavaVersion.current().isJava8Compatible()) {
     }
 }
 
+group = 'com.sudoplay.particle'
+version = new File("${project.projectDir}/project.version").text
+archivesBaseName = 'orchidecs'
+
 repositories {
     mavenCentral()
-    maven { url "https://jitpack.io" }
 }
 
 dependencies {
-    compile 'ch.qos.logback:logback-classic:1.1.2'
-    compile 'ch.qos.logback:logback-core:1.1.2'
     compile 'org.slf4j:slf4j-api:1.7.7'
     compile 'org.slf4j:slf4j-ext:1.7.7'
 
-    compile 'com.github.sudoplaygames:sudomath:1.0.2'
+    compile 'com.sudoplaygames:sudomath:1.0.3'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.1'
 }
 
 task javadocJar(type: Jar) {
@@ -58,9 +63,9 @@ uploadArchives {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            pom.groupId = GROUP
-            pom.artifactId = POM_ARTIFACT_ID
-            pom.version = VERSION_NAME
+            pom.groupId = project.group
+            pom.artifactId = project.archivesBaseName
+            pom.version = project.version
 
             repository(url: LOCAL_REPOSITORY_URL)
 

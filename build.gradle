@@ -12,7 +12,7 @@ if (JavaVersion.current().isJava8Compatible()) {
 
 group = 'com.sudoplay.particle'
 version = new File("${project.projectDir}/project.version").text
-archivesBaseName = 'orchidecs'
+archivesBaseName = 'fleck'
 
 repositories {
     mavenCentral()
@@ -54,7 +54,7 @@ signing {
 }
 
 def isReleaseBuild() {
-    return VERSION_NAME.contains("SNAPSHOT") == false;
+    return project.version.contains("SNAPSHOT") == false;
 }
 
 //noinspection GroovyAssignabilityCheck

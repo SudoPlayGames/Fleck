@@ -57,6 +57,24 @@ def isReleaseBuild() {
     return project.version.contains("SNAPSHOT") == false;
 }
 
+def getReleaseRepositoryUrl() {
+    return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
+            : "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+}
+
+def getSnapshotRepositoryUrl() {
+    return hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
+            : "https://oss.sonatype.org/content/repositories/snapshots/"
+}
+
+def getRepositoryUsername() {
+    return hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+}
+
+def getRepositoryPassword() {
+    return hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
+}
+
 //noinspection GroovyAssignabilityCheck
 uploadArchives {
     repositories {
@@ -67,7 +85,12 @@ uploadArchives {
             pom.artifactId = project.archivesBaseName
             pom.version = project.version
 
-            repository(url: LOCAL_REPOSITORY_URL)
+            repository(url: getReleaseRepositoryUrl()) {
+                authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+            }
+            snapshotRepository(url: getSnapshotRepositoryUrl()) {
+                authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+            }
 
             pom.project {
                 name POM_NAME

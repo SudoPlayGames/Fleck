@@ -108,7 +108,7 @@ public class ParticleEmitter {
     updateParticlePlugins = Collections.unmodifiableList(updateList);
   }
 
-  public void update(int tpf) {
+  public void update(float tpf) {
     if (!dead && !emitterDelay.update(tpf)) {
       particleTimestepPlugin.update(this, tpf);
     }

@@ -4,8 +4,6 @@ import com.sudoplay.fleck.core.Particle;
 import com.sudoplay.fleck.core.ParticleEmitter;
 import com.sudoplay.fleck.integration.spi.plugin.ParticlePlugin;
 import com.sudoplay.fleck.integration.spi.plugin.TimestepPlugin;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -16,8 +14,6 @@ import java.util.List;
  */
 public class TimestepGafferPlugin
     implements TimestepPlugin {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TimestepGafferPlugin.class);
 
   protected static final float DT = 0.01f;
 
